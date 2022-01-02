@@ -68,6 +68,19 @@ class Elements:
     def red_light(msg:str) -> str:
         return f"🔴 {msg}"
 
+    @staticmethod
+    def white_light(msg:str) -> str:
+        return f"⚪️ {msg}"
+
+    @staticmethod
+    def success_callout(msg:str) -> str:
+        return f"🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩{msg}\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩"
+
+    @staticmethod
+    def error_callout(msg:str) -> str:
+        return f"🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥{msg}\n🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥"
+
+    
 
 class ProgressBar:
     def __init__(self, start:int, end:int) -> None:
