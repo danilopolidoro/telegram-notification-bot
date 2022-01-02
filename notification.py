@@ -6,7 +6,7 @@ class Notification:
         self.__BOT = telegram.Bot(token=telegram_token)
         self.__CHAT_ID = chat_id
         self.__msg_stack = []
-        self.__msg_id = self.__send_message("Initiating Notification")
+        self.__msg_id = self.__send_message("Initiating Notification").message_id
 
     def __send_message(self, msg:str):
         return self.__BOT.send_message(text=msg, chat_id=self.__CHAT_ID)
@@ -22,6 +22,10 @@ class Notification:
     def __render(self):
         '''Render message stack as a string'''
         base_str = ""
+
+        if len(self.__msg_stack) == 0:
+            return "Empty Notification"
+
         for el in self.__msg_stack:
             base_str += str(el)
             base_str += "\n"
@@ -36,13 +40,8 @@ class Notification:
         self.__update_message()
     
     def __delitem__(self, key):
-        if len(self.__msg_stack) > 1:
-            del self.__msg_stack[key]
-            self.__update_message()
-        else:
-            del self.__msg_stack[key]
-            self.__send_message("Empty notification")
-
+        del self.__msg_stack[key]
+        self.__update_message()
 
     def __iter__(self):
         for el in self.__msg_stack:
