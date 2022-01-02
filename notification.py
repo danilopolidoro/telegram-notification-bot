@@ -21,6 +21,10 @@ class Notification:
     def __delitem__(self, key):
         del self.__msg_stack[key]
 
+    def __iter__(self):
+        for el in self.__msg_stack:
+            yield el
+
     def get_msg_stack(self):
         pass
 
