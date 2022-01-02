@@ -1,3 +1,4 @@
+from typing import Text
 import telegram
 
 class Notification:
@@ -5,9 +6,16 @@ class Notification:
         self.__BOT = telegram.Bot(token=telegram_token)
         self.__CHAT_ID = chat_id
         self.__msg_stack = []
+        self.__msg_id = self.__BOT.send_message(text="Initiating Notification", chat_id=self.__CHAT_ID).message_id
 
-    def __send_message(self, msg:str):
-        self.__BOT.send_message(text=msg, chat_id=self.__CHAT_ID)
+    def __update_message(self):
+        rendered_message = self.__render()
+        self.__BOT.edit_message_text()
+        self.__BOT.send_message(
+            text=rendered_message,
+            chat_id=self.__CHAT_ID,
+            message_id = self.__msg_id
+        )
 
     def __render(self):
         '''Render message stack as a string'''
@@ -17,19 +25,19 @@ class Notification:
 
     def __setitem__(self, key, value):
         self.__msg_stack[key] = value
+        self.__update_message()
     
     def __delitem__(self, key):
         del self.__msg_stack[key]
+        self.__update_message()
 
     def __iter__(self):
         for el in self.__msg_stack:
             yield el
 
-    def get_msg_stack(self):
-        pass
+    def __str__(self) -> str:
+        return self.__render()
 
-    def edit_msg_stack(self):
-        pass
 
 
 class Elements:
