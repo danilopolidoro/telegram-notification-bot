@@ -1,4 +1,3 @@
-from typing import Text
 import telegram
 
 class Notification:
