@@ -9,6 +9,18 @@ class Notification:
     def __send_message(self, msg:str):
         self.__BOT.send_message(text=msg, chat_id=self.__CHAT_ID)
 
+    def __render(self):
+        '''Render message stack as a string'''
+
+    def __getitem__(self, item):
+        return self.__msg_stack[item]
+
+    def __setitem__(self, key, value):
+        self.__msg_stack[key] = value
+    
+    def __delitem__(self, key):
+        del self.__msg_stack[key]
+
     def get_msg_stack(self):
         pass
 
@@ -28,6 +40,7 @@ class Elements:
     @staticmethod
     def red_light(msg:str) -> str:
         return f"🔴 {msg}"
+
 
 class ProgressBar:
     def __init__(self, start:int, end:int) -> None:
