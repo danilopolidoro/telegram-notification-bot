@@ -10,8 +10,7 @@ class Notification:
 
     def __update_message(self):
         rendered_message = self.__render()
-        self.__BOT.edit_message_text()
-        self.__BOT.send_message(
+        self.__BOT.edit_message_text(
             text=rendered_message,
             chat_id=self.__CHAT_ID,
             message_id = self.__msg_id
@@ -19,6 +18,12 @@ class Notification:
 
     def __render(self):
         '''Render message stack as a string'''
+        base_str = ""
+        for el in self.__msg_stack:
+            base_str += str(el)
+            base_str += "\n"
+        
+        return base_str
 
     def __getitem__(self, item):
         return self.__msg_stack[item]
@@ -34,6 +39,10 @@ class Notification:
     def __iter__(self):
         for el in self.__msg_stack:
             yield el
+    
+    def add(self, content):
+        self.__msg_stack.append(content)
+        self.__update_message()
 
     def __str__(self) -> str:
         return self.__render()
