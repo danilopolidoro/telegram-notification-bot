@@ -12,6 +12,10 @@ class Elements:
         return f"🔴 {msg}"
 
     @staticmethod
+    def yellow_light(msg:str) -> str:
+        return f"🟡 {msg}"
+
+    @staticmethod
     def white_light(msg:str) -> str:
         return f"⚪️ {msg}"
 
